@@ -81,6 +81,7 @@ void turn_light_on(uint16_t light)
 
 void wait_and_change(uint32_t *duration, uint32_t *redDuration, uint8_t *flag){
 	uint32_t startTime = 0;
+
 	startTime = HAL_GetTick();
 	while((HAL_GetTick() - startTime) < *duration)
 	{
@@ -151,16 +152,7 @@ int main(void)
 
 	  wait_and_change(&duration_red, &duration_red, &button_flag);
 
-//	  startTime = HAL_GetTick();
-//	  while((HAL_GetTick() - startTime) < duration_red)
-//	  {
-//		  if(HAL_GPIO_ReadPin(GPIOC, GPIO_PIN_15) == 0 && button_flag == 0) {
-//			  duration_red = duration_red / 4;
-//			  button_flag = 1;
-//		  }
-//	  }
 
-	  //Red of, Green on
 	  turn_light_on(GREEN);
 
 	  wait(duration);
@@ -173,40 +165,14 @@ int main(void)
 
 		wait_and_change(&blink_duration, &duration_red, &button_flag);
 
-
-		/*startTime = HAL_GetTick();
-		while((HAL_GetTick() - startTime) < blink_duration)
-		{
-			if(HAL_GPIO_ReadPin(GPIOC, GPIO_PIN_15) == 0 && button_flag == 0) {
-				duration_red = duration_red / 4;
-				button_flag = 1;
-			}
-		}*/
-
 		turn_light_on(GREEN);
 		wait_and_change(&blink_duration, &duration_red, &button_flag);
-		/*startTime = HAL_GetTick();
-		while((HAL_GetTick() - startTime) < blink_duration)
-		{
-		  if(HAL_GPIO_ReadPin(GPIOC, GPIO_PIN_15) == 0 && button_flag == 0) {
-			  duration_red = duration_red / 4;
-			  button_flag = 1;
-		  }
-		}*/
+
 	  }
 
 	  turn_light_on(YELLOW);
 
 	  wait_and_change(&duration_yellow, &duration_red, &button_flag);
-
-	  /*startTime = HAL_GetTick();
-	  while((HAL_GetTick() - startTime) < duration_yellow)
-	  {
-		  if(HAL_GPIO_ReadPin(GPIOC, GPIO_PIN_15) == 0 && button_flag == 0) {
-			  duration_red = duration_red / 4;
-			  button_flag = 1;
-		  }
-	  }*/
 
   }
   /* USER CODE END 3 */
