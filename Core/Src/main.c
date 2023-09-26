@@ -135,7 +135,6 @@ int main(void)
   uint32_t duration_yellow = 1000;
   uint8_t button_flag = 0;
   uint8_t blink_count = 3;
-
   turn_all_off();
 
   /* USER CODE END 2 */
@@ -147,31 +146,19 @@ int main(void)
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
-
 	  turn_light_on(RED);
-
 	  wait_and_change(&duration_red, &duration_red, &button_flag);
-
-
 	  turn_light_on(GREEN);
-
 	  wait(duration);
-
 	  duration_red = 4 * duration;
 	  button_flag = 0;
-
 	  for(uint32_t i = 0; i < blink_count; i++){
 		turn_all_off();
-
 		wait_and_change(&blink_duration, &duration_red, &button_flag);
-
 		turn_light_on(GREEN);
 		wait_and_change(&blink_duration, &duration_red, &button_flag);
-
 	  }
-
 	  turn_light_on(YELLOW);
-
 	  wait_and_change(&duration_yellow, &duration_red, &button_flag);
 
   }
