@@ -57,6 +57,7 @@ void SystemClock_Config(void);
 uint16_t RED = GPIO_PIN_15;
 uint16_t YELLOW = GPIO_PIN_14;
 uint16_t GREEN = GPIO_PIN_13;
+#define COMMON_DELAY 50
 
 void wait(uint32_t duration)
 {
@@ -83,7 +84,11 @@ void wait_and_change(uint32_t *duration, uint32_t *redDuration, uint8_t *flag){
 	startTime = HAL_GetTick();
 	while((HAL_GetTick() - startTime) < *duration)
 	{
-		if(HAL_GPIO_ReadPin(GPIOC, GPIO_PIN_15) == 0 && *flag == 0) {
+		GPIO_PinState measure_1 = HAL_GPIO_ReadPin(GPIOC, GPIO_PIN_15);
+		wait(COMMON_DELAY);
+		GPIO_PinState measure_2 = HAL_GPIO_ReadPin(GPIOC, GPIO_PIN_15);
+
+		if((!measure_1 && !measure_2) && *flag == 0) {
 			*redDuration = *redDuration / 4;
 			*flag = 1;
 		}
